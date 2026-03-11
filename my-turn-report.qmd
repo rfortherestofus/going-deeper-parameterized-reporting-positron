@@ -1,0 +1,46 @@
+---
+title: "Life Expectancy Report"
+format: html
+execute: 
+  echo: false
+  warning: false
+  message: false
+params:
+  country: Afghanistan
+  start_year: 1970
+---
+
+```{r}
+if (interactive()) {
+  params <- rmarkdown::yaml_front_matter(
+    rstudioapi::getSourceEditorContext()$path
+  )$params
+}
+```
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+```{r}
+life_expectancy <-
+  gapminder |>
+  select(country, year, lifeExp) |>
+  filter(country == params$country) |>
+  filter(year >= params$start_year)
+```
+
+## Life Expectancy in `r params$country`
+
+```{r}
+ggplot(
+  data = life_expectancy,
+  aes(
+    x = year,
+    y = lifeExp
+  )
+) +
+  geom_line() +
+  theme_minimal()
+```
