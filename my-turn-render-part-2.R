@@ -10,7 +10,7 @@ countries <-
 
 reports <-
   tibble(
-    input = "report.qmd",
+    input = "my-turn-report.qmd",
     output_file = str_glue("{countries}.html"),
     execute_params = map(countries, ~list(country = .))
   )

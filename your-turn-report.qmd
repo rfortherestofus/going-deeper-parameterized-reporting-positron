@@ -10,6 +10,14 @@ execute:
 ---
 
 ```{r}
+if (interactive()) {
+  params <- rmarkdown::yaml_front_matter(
+    rstudioapi::getSourceEditorContext()$path
+  )$params
+}
+```
+
+```{r}
 library(tidyverse)
 library(gapminder)
 ```
